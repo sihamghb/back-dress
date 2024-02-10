@@ -35,7 +35,7 @@ public class UserController {
         userService.deleteAccountById(id);
     }
 
-    @PostMapping("/update/{id}")
+    @PutMapping("/update/{id}")
     public UserPo updateUser(@PathVariable Integer id, @RequestBody UserPo updatedUser) {
         return userService.updateAccount(id, updatedUser.getName(), updatedUser.getEmail(), updatedUser.getAddress(), updatedUser.getPassword());
     }
