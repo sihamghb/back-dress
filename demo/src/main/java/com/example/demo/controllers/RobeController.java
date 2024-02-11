@@ -20,11 +20,26 @@ public class RobeController {
 
     @PostMapping("/add")
     public Robe addRobe(@ModelAttribute UserRobeDto userRobe,
-                         @RequestParam("image") MultipartFile image) throws IOException {
+                        @RequestParam("image") MultipartFile image) throws IOException {
         return robeService.insertRobe(userRobe, image);
     }
+
     @GetMapping("/{userId}")
-    public List<Robe> getRobesByUser (@PathVariable Integer userId) {
+    public List<Robe> getRobesByUser(@PathVariable Integer userId) {
         return robeService.getRobesByUserId(userId);
     }
+
+    @GetMapping("/all")
+    public List<Robe> getAllRobes() {
+        return robeService.getAllRobes();
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public void deleteDress(@PathVariable Integer id) {
+        robeService.deleteRobeById(id);
+    }
 }
+
+
+
+
