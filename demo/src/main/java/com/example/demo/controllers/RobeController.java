@@ -18,7 +18,7 @@ public class RobeController {
     @Autowired
     private RobeService robeService;
 
-    @PostMapping
+    @PostMapping("/add")
     public Robe addRobe(@ModelAttribute UserRobeDto userRobe,
                          @RequestParam("image") MultipartFile image) throws IOException {
         return robeService.insertRobe(userRobe, image);
