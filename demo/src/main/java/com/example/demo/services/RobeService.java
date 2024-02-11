@@ -48,4 +48,15 @@ public class RobeService {
 
         return user.getRobes();
     }
-}
+    public List<Robe> getAllRobes() {
+        return repository.findAll();
+    }
+    public void deleteRobeById(Integer robeId) {
+        // Vérifie si une robe avec l'ID fourni existe
+        Robe robe = repository.findById(robeId).orElseThrow(() -> new RuntimeException("Robe not found with id " + robeId));
+
+        // Si la robe existe, la supprimer
+        repository.delete(robe);
+    }
+
+    }
