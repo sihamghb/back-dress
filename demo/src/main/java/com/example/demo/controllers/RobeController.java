@@ -2,8 +2,11 @@ package com.example.demo.controllers;
 
 import com.example.demo.dto.UserRobeDto;
 import com.example.demo.models.Robe;
+import com.example.demo.models.UserPo;
+import com.example.demo.repository.RobeRepository;
 import com.example.demo.services.RobeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -17,6 +20,7 @@ public class RobeController {
 
     @Autowired
     private RobeService robeService;
+    private RobeRepository robeRepository;
 
     @PostMapping("/add")
     public Robe addRobe(@ModelAttribute UserRobeDto userRobe,
@@ -38,6 +42,12 @@ public class RobeController {
     public void deleteDress(@PathVariable Integer id) {
 
         robeService.deleteRobeById(id);
+    }
+    @GetMapping("/{id}/users")
+    public ResponseEntity<?> getUsersByRobeId(@PathVariable Integer id){
+        List<UserPo> users = robeRepository.findUsersByRobeId(id);
+        // Gérer la réponse en fonction de votre logique d'application
+        return ResponseEntity.ok(users);
     }
 }
 

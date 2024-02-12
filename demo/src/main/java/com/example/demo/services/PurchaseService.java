@@ -42,4 +42,9 @@ public class PurchaseService {
     public List<Purchase> getPurchaseBYUser(Integer userId) {
         return purchaseRepository.findAllByUserPo_Id(userId);
     }
+
+    public void deletePurchase (Integer id){
+        purchaseRepository.deleteById(id);
+
+    }
 }
