@@ -2,6 +2,7 @@ package com.example.demo.controllers;
 
 import com.example.demo.models.Purchase;
 import com.example.demo.services.PurchaseService;
+import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,6 +28,12 @@ public class PurchaseController {
     @GetMapping("/{userId}")
     public List<Purchase> getPurchaseByUser(@PathVariable Integer userId) {
         return purchaseService.getPurchaseBYUser(userId);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public void deletePurchase(@PathVariable Integer id) {
+
+        purchaseService.deletePurchase(id);
     }
 
 }
