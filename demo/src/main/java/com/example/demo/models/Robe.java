@@ -35,7 +35,7 @@ public class Robe {
     @JsonIgnore
     private List<UserPo> users = new ArrayList<>();
 
-    @OneToMany(mappedBy = "robe")
+    @OneToMany(mappedBy = "robe", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
     private List<Purchase> purchases;
 }

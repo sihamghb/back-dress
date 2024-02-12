@@ -36,6 +36,7 @@ public class RobeController {
 
     @DeleteMapping("/delete/{id}")
     public void deleteDress(@PathVariable Integer id) {
+
         robeService.deleteRobeById(id);
     }
 }
