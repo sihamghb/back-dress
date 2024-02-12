@@ -8,6 +8,7 @@ import com.example.demo.repository.RobeRepository;
 import com.example.demo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -51,11 +52,17 @@ public class RobeService {
     public List<Robe> getAllRobes() {
         return repository.findAll();
     }
+    @Transactional
     public void deleteRobeById(Integer robeId) {
-        // Vérifie si une robe avec l'ID fourni existe
-        Robe robe = repository.findById(robeId).orElseThrow(() -> new RuntimeException("Robe not found with id " + robeId));
+        Robe robe = repository.findById(robeId)
+                .orElseThrow(() -> new RuntimeException("Robe not found with id " + robeId));
 
-        // Si la robe existe, la supprimer
+        // Dissocier la robe de tous les utilisateurs associés
+        robe.getUsers().forEach(user -> user.getRobes().remove(robe));
+        // Sauvegarde des utilisateurs pour persister la dissociation
+        // userRepository.saveAll(robe.getUsers()); // Cette ligne est optionnelle avec une transaction bien configurée
+
+        // Supprimer la robe
         repository.delete(robe);
     }
 
